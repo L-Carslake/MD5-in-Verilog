@@ -2,11 +2,11 @@
 # Webtalk v2018.3 (64-bit)
 # SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
-# Start of session at: Thu Sep 26 16:27:13 2019
-# Process ID: 14532
+# Start of session at: Thu Sep 26 13:17:02 2019
+# Process ID: 7508
 # Current directory: C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim
-# Command line: wbtcv.exe -mode batch -source C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim/xsim.dir/hash_operation_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Command line: wbtcv.exe -mode batch -source C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim/xsim.dir/MD5_tb_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim/webtalk.log
 # Journal file: C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim\webtalk.jou
 #-----------------------------------------------------------
-source C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim/xsim.dir/hash_operation_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+source C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.sim/sim_1/behav/xsim/xsim.dir/MD5_tb_behav/webtalk/xsim_webtalk.tcl -notrace

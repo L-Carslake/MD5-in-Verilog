@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../MD5-in-Verilog.srcs/sources_1/new/MD5.v" \
+"../../../../MD5-in-Verilog.srcs/sources_1/new/hash_operation.v" \
+"../../../../MD5-in-Verilog.srcs/sim_1/new/MD5_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
