@@ -87,7 +87,7 @@ endfunction
           //Pre-processing: padding with zeros
            message_padded = message_padded | 488'b0;
           //Pre-processing: Append length 2^64 
-           message_padded =(message_length << 448)| message ;
+           message_padded =(message_length << 448)| message_padded ;
            
           hash <= {big_endian_32b(con_a[64]+a_initial),
                    big_endian_32b(con_b[64]+b_initial),
