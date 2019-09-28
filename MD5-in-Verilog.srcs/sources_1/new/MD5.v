@@ -48,15 +48,15 @@ module MD5(
     assign con_d[0] = d_initial;
     assign con_message[0] = message_padded;
     
-    generate
-        genvar i;
+    genvar i;
+    generate    
         for(i=0;i<64;i=i+1)
         begin : generate_hash_operations
             hash_operation #(
                 .index(i)
             )
             hash_operation_i(
-            .clock(clock),           
+            .clock(clock),
             .a_in(con_a[i]),             
             .b_in(con_b[i]),             
             .c_in(con_c[i]),             
@@ -83,11 +83,11 @@ endfunction
   begin
       if(enable) begin
           //Pre-processing: adding a single 1 bit
-           message_padded = {message, 1'b1};
+           message_padded = {64'h0,message};
           //Pre-processing: padding with zeros
-           message_padded = message_padded | 488'b0;
+          // message_padded = message_padded | 488'b0;
           //Pre-processing: Append length 2^64 
-           message_padded =(message_length << 448)| message_padded ;
+           //message_padded =(message_length << 448)| message_padded ;
            
           hash <= {big_endian_32b(con_a[64]+a_initial),
                    big_endian_32b(con_b[64]+b_initial),
