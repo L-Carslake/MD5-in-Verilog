@@ -77,17 +77,26 @@ module MD5(
 		big_endian_32b = {__IN[0+:8],__IN[8+:8],__IN[16+:8],__IN[24+:8]};
 	end
 endfunction
-        
-    
+
   always@(posedge clock)
   begin
       if(enable) begin
-          //Pre-processing: adding a single 1 bit
-           message_padded = {64'h0,message};
+          //Pre-processing: Append length 2^64 
+          message_padded = {
+          message_length[63:56],
+          message_length[55:48],
+          message_length[47:40],
+          message_length[39:32],
+          message_length[31:24],
+          message_length[23:16],
+          message_length[15:8],
+          message_length[7:0],
+          message};
+          //Pre-processing: adding a single 1 
+          message_padded[(message_length*8)+:32] = big_endian_32b('h00000080);
           //Pre-processing: padding with zeros
           // message_padded = message_padded | 488'b0;
-          //Pre-processing: Append length 2^64 
-           //message_padded =(message_length << 448)| message_padded ;
+          message_padded[(14*32)+:32] = big_endian_32b('h00000020);
            
           hash <= {big_endian_32b(con_a[64]+a_initial),
                    big_endian_32b(con_b[64]+b_initial),

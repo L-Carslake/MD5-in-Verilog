@@ -29,7 +29,7 @@ module hash_operation(
     
     parameter index = 0; 
     reg[31:0] per_round_shift_amounts [0:63], sines_of_integers [0:63];
-    reg[31:0] message_debug;
+    reg[31:0] message_debug,  f_debug, pre_shift_debug, post_shift_debug;
     
     function [31:0] F;
         input[31:0] B, C, D;
@@ -82,12 +82,18 @@ module hash_operation(
     always@(posedge clock)
     begin 
         case (index/16)
-            0:b_out <= b_in + shift_circ( ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]);
-            1:b_out <= b_in + shift_circ( ( a_in + G(b_in, c_in, d_in) + switch_endianness_32b(message_in[512-32-32*((5*index+1)%16)  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
-            2:b_out <= b_in + shift_circ( ( a_in + H(b_in, c_in, d_in) + switch_endianness_32b(message_in[512-32-32*((3*index+5)%16)  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
-            3:b_out <= b_in + shift_circ( ( a_in + I(b_in, c_in, d_in) + switch_endianness_32b(message_in[512-32-32*((7*index)%16)    +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]);  
+            0:begin b_out <= b_in + shift_circ( ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
+            message_debug <= switch_endianness_32b(message_in[32*((index))  +: 32]); end
+            1: begin b_out <= b_in + shift_circ( ( a_in + G(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((5*index+1)%16)  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
+            message_debug <= switch_endianness_32b(message_in[32*((5*index+1)%16)  +: 32]); end
+            2: begin b_out <= b_in + shift_circ( ( a_in + H(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((3*index+5)%16)  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
+            message_debug <= switch_endianness_32b(message_in[32*((3*index+5)%16)  +: 32]); end
+            3:begin b_out <= b_in + shift_circ( ( a_in + I(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((7*(index))%16)    +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]);  
+            message_debug <= switch_endianness_32b(message_in[32*((7*(index))%16)    +: 32]); end
         endcase
-        message_debug <= switch_endianness_32b( message_in[(32*index %16) +: 32]);
+        f_debug <= F(b_in, c_in, d_in);
+        pre_shift_debug <= ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]);
+        post_shift_debug <= shift_circ( ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
         d_out <= c_in;
         c_out <= b_in;
         a_out <= d_in; 

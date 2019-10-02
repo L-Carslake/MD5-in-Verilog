@@ -23,7 +23,7 @@
 module MD5_tb(
     );
     reg clock_tb =0 ;
-    reg[447:0] message_tb = "test";
+    reg[447:0] message_tb = "topo";
     reg [63:0] message_length_tb = 'd4;
     wire [511:0] message_out_tb;
     wire [127:0] hash_tb;
