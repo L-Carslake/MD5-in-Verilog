@@ -78,22 +78,42 @@ module MD5(
 	end
 endfunction
 
+function[447:0] to_c_string; //Convert verilog string to a C format string arrangement
+    input[447:0] __STRING;
+    input[64:0] __LENGTH;
+    reg[4:0] itterations;
+    reg[4:0] index;
+    reg[5:0] remainder;
+    reg[5:0] j;
+    begin
+        $display("function: to_c_string");
+        
+        $display("  itteratons: %2d", __LENGTH /32 );
+        itterations = __LENGTH / 32 ;
+        remainder = __LENGTH % 32 ;
+        to_c_string = 448'b0;
+        
+        for(index =0; index<itterations ; index=index+1) begin //rearrange full 32bit words
+            $display("  index: %1d value: %h",  index, big_endian_32b(__STRING[(__LENGTH -32 * (index+1)) +: 32]));
+            to_c_string[(index*32)%415 +: 32] = big_endian_32b(__STRING[(__LENGTH -32 * (index+1)) +: 32]);
+        end
+        for(j = 0 ; j < remainder < 32; j = j +8 )begin //rearrange partial last word
+            $display("  remianing: %1d bits value: %h",  remainder-j , __STRING[remainder -j -8 +: 8]);
+            to_c_string[(index*32 + j) +: 8] = __STRING[remainder -j -8 +: 8];
+        end
+        $display("endfunction: to_c_string\n");
+    end
+endfunction
+
   always@(posedge clock)
   begin
       if(enable) begin
           //Pre-processing: Append length 2^64 
           message_padded = {
-          message_length[63:56],
-          message_length[55:48],
-          message_length[47:40],
-          message_length[39:32],
-          message_length[07:00],
-          message_length[15:08],
-          message_length[23:16],
-          message_length[31:24],
-          message};
+          message_length[63:0],
+          to_c_string(message, message_length)};
           //Pre-processing: append a single 1 
-          message_padded[(message_length)+:32] = big_endian_32b('h00000080);
+          message_padded[(message_length)+:32] = 'h00000080;
           //Pre-processing: padding with zeros
           // message_padded = message_padded | 488'b0;
           

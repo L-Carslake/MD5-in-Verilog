@@ -23,8 +23,8 @@
 module MD5_tb(
     );
     reg clock_tb =0 ;
-    reg[447:0] message_tb = "test";
-    reg [63:0] message_length_tb = 'd32; //(in bits)
+    reg[447:0] message_tb = "testhelpdashab";
+    reg [63:0] message_length_tb = 'd112; //(in bits)
     wire [511:0] message_out_tb;
     wire [127:0] hash_tb;
     
