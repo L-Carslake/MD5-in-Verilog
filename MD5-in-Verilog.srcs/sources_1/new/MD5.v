@@ -49,7 +49,7 @@ module MD5(
     assign con_message[0] = message_padded;
     
     genvar i;
-    generate    
+    generate //Processing: Generate the 64 MD5 stages in a pipeline
         for(i=0;i<64;i=i+1)
         begin : generate_hash_operations
             hash_operation #(
@@ -92,15 +92,17 @@ endfunction
           message_length[23:16],
           message_length[31:24],
           message};
-          //Pre-processing: adding a single 1 
+          //Pre-processing: append a single 1 
           message_padded[(message_length)+:32] = big_endian_32b('h00000080);
           //Pre-processing: padding with zeros
           // message_padded = message_padded | 488'b0;
-           
+          
+          //Output: Combine the four segments
           hash <= {big_endian_32b(con_a[64]+a_initial),
                    big_endian_32b(con_b[64]+b_initial),
                    big_endian_32b(con_c[64]+c_initial),
                    big_endian_32b(con_d[64]+d_initial)};
+          //output: Repeat the input message
           message_out = con_message[64];
           
        end

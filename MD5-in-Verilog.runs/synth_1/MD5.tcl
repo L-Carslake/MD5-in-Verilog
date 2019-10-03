@@ -17,8 +17,10 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+set_param synth.incrementalSynthesisCache {C:/Users/Lawrence Carslake/AppData/Roaming/Xilinx/Vivado/.Xil/Vivado-12452-Lenovo/incrSyn}
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-638} -limit 10000
+set_msg_config  -id {VRFC 10-3091}  -string {{WARNING: [VRFC 10-3091] actual bit length 478 differs from formal bit length 448 for port 'message' [C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.srcs/sim_1/new/MD5_tb.v:33]}}  -suppress 
 create_project -in_memory -part xc7a35tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -37,7 +39,10 @@ read_mem {
   C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.srcs/sources_1/new/sines-of-integers.mem
   C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.srcs/sources_1/new/per-shift-amounts.mem
 }
-read_verilog -library xil_defaultlib C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.srcs/sources_1/new/MD5.v
+read_verilog -library xil_defaultlib {
+  C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.srcs/sources_1/new/hash_operation.v
+  C:/FPGA_Projects/MD5-in-Verilog/MD5-in-Verilog.srcs/sources_1/new/MD5.v
+}
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
 # design are intentionally left as such for best results. Dcp files will be

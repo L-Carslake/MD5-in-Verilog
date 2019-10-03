@@ -92,8 +92,8 @@ module hash_operation(
             message_debug <= switch_endianness_32b(message_in[32*((7*(index))%16)    +: 32]); end
         endcase
         f_debug <= F(b_in, c_in, d_in);
-        pre_shift_debug <= ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]);
-        post_shift_debug <= shift_circ( ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
+        //pre_shift_debug <= ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]);
+        //post_shift_debug <= shift_circ( ( a_in + F(b_in, c_in, d_in) + switch_endianness_32b(message_in[32*((index))  +: 32]) + sines_of_integers[index]) , per_round_shift_amounts[index]); 
         d_out <= c_in;
         c_out <= b_in;
         a_out <= d_in; 
