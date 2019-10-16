@@ -1,0 +1,1 @@
+NDMenu.OnTabsLoaded([["File","Files","File:sources_1/new/","files.js"]]);

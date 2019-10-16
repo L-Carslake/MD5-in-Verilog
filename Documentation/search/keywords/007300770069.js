@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("swi",["Function"],[["Switch",,[[,"Switch Endianess",,,0,"File:sources_1/new/hash_operation.v:Switch_Endianess"],[,"Auxillary Function Switch Case",,,0,"File:sources_1/new/hash_operation.v:Auxillary_Function_Switch_Case"]]]]);
